@@ -9,5 +9,6 @@ data class User(
     val name: String,
     val email: String,
     val password: String,
-    val role: String // "STUDENT", "SUPERVISOR", "ADMIN"
+    val role: String, // "STUDENT", "SUPERVISOR", "ADMIN"
+    val supervisorId: Int? = null // Only for students
 )

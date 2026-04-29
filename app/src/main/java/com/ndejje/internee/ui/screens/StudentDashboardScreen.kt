@@ -12,6 +12,7 @@ import com.ndejje.internee.R
 import com.ndejje.internee.ui.viewmodel.AuthViewModel
 import com.ndejje.internee.ui.viewmodel.MainViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudentDashboardScreen(
     authViewModel: AuthViewModel,
@@ -21,11 +22,11 @@ fun StudentDashboardScreen(
     onLogout: () -> Unit
 ) {
     val user by authViewModel.currentUser
-    val reports by mainViewModel.getReportsForStudent(user?.id ?: 0).collectAsState()
+    val reports by mainViewModel.getReportsForStudent(user?.id ?: 0).collectAsState(initial = emptyList())
 
     Scaffold(
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = { Text(stringResource(R.string.student_dashboard)) },
                 actions = {
                     TextButton(onClick = onLogout) {

@@ -21,8 +21,9 @@ fun SupervisorDashboardScreen(
     mainViewModel: MainViewModel,
     onLogout: () -> Unit
 ) {
-    val reports by mainViewModel.allReports.collectAsState()
     val user by authViewModel.currentUser
+    // Only fetch reports for students assigned to this supervisor
+    val reports by mainViewModel.getReportsForSupervisor(user?.id ?: 0).collectAsState(initial = emptyList())
 
     Scaffold(
         topBar = {
@@ -49,27 +50,33 @@ fun SupervisorDashboardScreen(
             )
 
             Text(
-                text = "Submitted Student Reports",
+                text = "Reports from Assigned Students",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
             )
 
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(bottom = dimensionResource(R.dimen.padding_medium))
-            ) {
-                items(reports) { report ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = dimensionResource(R.dimen.padding_small)),
-                        elevation = CardDefaults.cardElevation(dimensionResource(R.dimen.card_elevation))
-                    ) {
-                        Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))) {
-                            Text(text = "Student ID: ${report.studentId}", style = MaterialTheme.typography.labelSmall)
-                            Text(text = report.title, style = MaterialTheme.typography.titleMedium)
-                            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
-                            Text(text = report.content, style = MaterialTheme.typography.bodyMedium)
+            if (reports.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                    Text("No reports found for your assigned students.")
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = dimensionResource(R.dimen.padding_medium))
+                ) {
+                    items(reports) { report ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = dimensionResource(R.dimen.padding_small)),
+                            elevation = CardDefaults.cardElevation(dimensionResource(R.dimen.card_elevation))
+                        ) {
+                            Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))) {
+                                Text(text = "Student ID: ${report.studentId}", style = MaterialTheme.typography.labelSmall)
+                                Text(text = report.title, style = MaterialTheme.typography.titleMedium)
+                                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
+                                Text(text = report.content, style = MaterialTheme.typography.bodyMedium)
+                            }
                         }
                     }
                 }

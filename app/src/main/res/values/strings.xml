@@ -24,6 +24,13 @@
     <string name="report_title">Report Title</string>
     <string name="report_content">Report Content</string>
 
+    <!-- Admin Panel Specific Labels -->
+    <string name="internship_title_label">Internship Title</string>
+    <string name="company_name_label">Company Name</string>
+    <string name="location_label">Location</string>
+    <string name="description_label">Description</string>
+    <string name="registered_users_title">Registered Users</string>
+
     <string name="error_invalid_credentials">Invalid email or password</string>
     <string name="error_fields_required">All fields are required</string>
 </resources>
