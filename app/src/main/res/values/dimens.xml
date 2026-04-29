@@ -1,0 +1,13 @@
+<resources>
+    <dimension name="padding_small">8dp</dimension>
+    <dimension name="padding_medium">16dp</dimension>
+    <dimension name="padding_large">24dp</dimension>
+    <dimension name="margin_medium">16dp</dimension>
+    <dimension name="card_elevation">4dp</dimension>
+    <dimension name="button_height">56dp</dimension>
+    <dimension name="description_box_height">150dp</dimension>
+    <dimension name="text_size_small">14sp</dimension>
+    <dimension name="text_size_medium">16sp</dimension>
+    <dimension name="text_size_large">20sp</dimension>
+    <dimension name="title_size">24sp</dimension>
+</resources>
